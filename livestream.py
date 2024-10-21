@@ -43,7 +43,6 @@ async def start(args: argparse.Namespace, gopro: WirelessGoPro):
 
     console.print("[yellow]Starting livestream")
     assert (await gopro.ble_command.set_shutter(shutter=Params.Toggle.ENABLE)).ok
-
     console.print("[yellow]Livestream is now streaming and should be available for viewing.")
             
 async def stop(args: argparse.Namespace, gopro: WirelessGoPro):

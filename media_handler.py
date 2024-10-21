@@ -23,21 +23,25 @@ def get_media_list() -> Dict[str, Any]:
     # Check for errors (if an error is found, an exception will be raised)
     response.raise_for_status()
     logger.info("Command sent successfully")
-    # Log response as json
-    logger.info(f"Response: {json.dumps(response.json(), indent=4)}")
 
     return response.json()
 
-def get_last_captured_media():
-    media_list = json.dumps(get_media_list())
-    media_list_json = json.loads(media_list)
-    last_captured_media = media_list_json["media"][0]["fs"][-1]['n']
-    print(last_captured_media)
-    return last_captured_media
+# def get_last_captured_media():
+    # media_list = json.dumps(get_media_list())
+    # media_list_json = json.loads(media_list)
+    # last_captured_media = media_list_json["media"][-1]["fs"][-1]['n']
+    # folder_path = media_list_json["media"][-1]["d"]
+    # print(last_captured_media)
+    # return last_captured_media
 
 def download_last_captured_media():
-    last_captured_media = get_last_captured_media()
-    url = GOPRO_BASE_URL + "/videos/DCIM/100GOPRO/" + last_captured_media
+    media_list = json.dumps(get_media_list())
+    media_list_json = json.loads(media_list)
+    last_captured_media = media_list_json["media"][-1]["fs"][-1]['n']
+    folder_path = media_list_json["media"][-1]["d"]
+    print(last_captured_media)
+    
+    url = GOPRO_BASE_URL + "/videos/DCIM/" + folder_path + "/" + last_captured_media
     logger.info(f"Downloading the media: {last_captured_media}")
     print(url)
 
@@ -50,3 +54,8 @@ def download_last_captured_media():
                 f.write(chunk)
 
    # return response.json()
+   
+def delete_last_captured_media():
+    last_captured_media = get_last_captured_media()
+    url = GOPRO_BASE_URL + "/gopro/media/delete/file?path=105GOPRO/" + last_captured_media
+    request.get(url, timeout=10)

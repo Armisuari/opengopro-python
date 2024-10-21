@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=run-gopro
+Comment=Description of your script
+Exec=lxterminal -e "source /home/raspi/.venv/bin/activate;bash -c '/home/raspi/Documents/run_gopro.sh'; bash"
+#Icon=/path/to/your-icon.png
+Terminal=false
+Type=Application
