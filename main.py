@@ -132,7 +132,7 @@ async def main(args: argparse.Namespace) -> None:
                 # if((time.time() - last_command_time > 30)):
                 #     count += 30
                 console.print("[bright_cyan]Waiting for json command for ", count)
-                logger.warning("Waiting for json command for", count)
+                logger.warning("Waiting for json command for ", count)
                 #     #gopro sleep and close connection
                 #     await gopro.ble_command.sleep()
                 #     await gopro.close()
@@ -249,13 +249,11 @@ async def process_command(serial_string, gopro, ser, args, logger):
         
         try:
             #run auto backup program
-            # os.chdir("gdrive_auto_backup_files") #change directories
-            os.chdir("external") #change directories
+            os.chdir("gdrive_auto_backup_files") #change directories
 
             # os.system("npm start")
             # Run npm start with a timeout of 10 seconds (adjust as needed)
-            # result = subprocess.run(["npm", "start"], timeout=300)
-            result = subprocess.run(["python3", "main_app.py"])
+            result = subprocess.run(["npm", "start"], timeout=120)
 
             os.chdir("..") #back to old working directories
 
